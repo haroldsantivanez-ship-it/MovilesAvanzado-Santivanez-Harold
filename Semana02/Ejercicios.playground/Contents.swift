@@ -459,3 +459,132 @@ print(separador)
 print("TOTAL: S/. \(totalFinal)")
 print(separador)
 print("¡Gracias por su compra!")
+// ===== EJERCICIO 6: CARRITO MEJORADO =====
+
+// Producto 1 del carrito.
+let producto1 = "Laptop"
+
+// Precio unitario del producto 1.
+let precioProducto1 = 3500.0
+
+// Cantidad comprada del producto 1.
+let cantidadProducto1 = 1
+
+// Producto 2 del carrito.
+let producto2 = "Mouse"
+
+// Precio unitario del producto 2.
+let precioProducto2 = 45.50
+
+// Cantidad comprada del producto 2.
+let cantidadProducto2 = 3
+
+// Producto 3 del carrito.
+let producto3 = "USB Cable"
+
+// Precio unitario del producto 3.
+let precioProducto3 = 15.0
+
+// Cantidad comprada del producto 3.
+let cantidadProducto3 = 4
+
+// Código del cupón utilizado.
+let cupon = "DESCUENTO20"
+
+// Validamos que los precios no sean negativos.
+let preciosValidos = precioProducto1 >= 0 && precioProducto2 >= 0 && precioProducto3 >= 0
+
+// Validamos que las cantidades sean mayores que cero.
+let cantidadesValidas = cantidadProducto1 > 0 && cantidadProducto2 > 0 && cantidadProducto3 > 0
+
+// Verificamos que todos los datos del carrito sean válidos.
+if preciosValidos && cantidadesValidas {
+
+    // Calculamos el subtotal del producto 1.
+    var subtotal1 = precioProducto1 * Double(cantidadProducto1)
+
+    // Calculamos el subtotal del producto 2.
+    var subtotal2 = precioProducto2 * Double(cantidadProducto2)
+
+    // Calculamos el subtotal del producto 3.
+    var subtotal3 = precioProducto3 * Double(cantidadProducto3)
+
+    // Aplicamos 5% adicional de descuento al producto 2 porque tiene 3 unidades.
+    if cantidadProducto2 >= 3 {
+        subtotal2 = subtotal2 * 0.95
+    }
+
+    // Aplicamos 5% adicional de descuento al producto 3 porque tiene 3 o más unidades.
+    if cantidadProducto3 >= 3 {
+        subtotal3 = subtotal3 * 0.95
+    }
+
+    // Sumamos los subtotales para obtener el total inicial.
+    let subtotal = subtotal1 + subtotal2 + subtotal3
+
+    // Inicializamos el descuento del cupón en cero.
+    var descuentoCupon = 0.0
+
+    // Verificamos si el cupón ingresado es válido.
+    if cupon == "DESCUENTO20" {
+        descuentoCupon = subtotal * 0.20
+    }
+
+    // Calculamos el total después del descuento del cupón.
+    let totalConDescuento = subtotal - descuentoCupon
+
+    // Inicializamos el costo del envío.
+    var costoEnvio = 25.0
+
+    // Si el total supera S/. 3000, el envío es gratis.
+    if totalConDescuento > 3000 {
+        costoEnvio = 0.0
+    }
+
+    // Calculamos los puntos de fidelidad obtenidos.
+    let puntos = Int(totalConDescuento / 100)
+
+    // Calculamos el total final incluyendo el envío.
+    let totalFinalMejorado = totalConDescuento + costoEnvio
+
+    // Mostramos una línea separadora.
+    print("========================================")
+
+    // Mostramos el título del ticket.
+    print("       CARRITO MEJORADO")
+
+    // Mostramos otra línea separadora.
+    print("========================================")
+
+    // Mostramos el primer producto.
+    print("\(producto1): S/. \(subtotal1)")
+
+    // Mostramos el segundo producto.
+    print("\(producto2): S/. \(subtotal2)")
+
+    // Mostramos el tercer producto.
+    print("\(producto3): S/. \(subtotal3)")
+
+    // Mostramos el subtotal.
+    print("Subtotal: S/. \(subtotal)")
+
+    // Mostramos el descuento aplicado por cupón.
+    print("Descuento cupón: S/. \(descuentoCupon)")
+
+    // Mostramos el costo del envío.
+    print("Envío: S/. \(costoEnvio)")
+
+    // Mostramos los puntos ganados.
+    print("Puntos ganados: \(puntos)")
+
+    // Mostramos el total final.
+    print("TOTAL: S/. \(totalFinalMejorado)")
+
+    // Cerramos el ticket.
+    print("========================================")
+
+} else {
+
+    // Mostramos un mensaje cuando algún dato del carrito es inválido.
+    print("ERROR: Precio negativo o cantidad inválida.")
+}
