@@ -236,3 +236,126 @@ print(texto)
 
 // PREDICT 7: Hola Hola Hola
 // _ se utiliza cuando no necesitamos usar el valor de la iteración.
+// ===== EJERCICIO 4: WHILE Y REPEAT-WHILE =====
+
+// --- Ejemplo (ya resuelto): ---
+
+var contador = 5
+
+while contador > 0 {
+    print("Cuenta regresiva: \(contador)")
+    contador -= 1
+}
+
+print("¡Despegue!")
+
+
+// --- TODO 11: Ahorro mensual ---
+
+// Un alumno ahorra S/. 150 cada mes.
+// ¿Cuántos meses necesita para juntar S/. 2000?
+
+var ahorro = 0.0
+var meses = 0
+let meta = 2000.0
+let ahorroMensual = 150.0
+
+while ahorro < meta {
+    ahorro += ahorroMensual
+    meses += 1
+}
+
+print("Necesita \(meses) meses para juntar S/. \(meta)")
+
+
+// --- TODO 12: División sucesiva ---
+
+// Divide un número entre 2 repetidamente
+// hasta que sea menor a 1.
+
+// IMPORTANTE:
+// Se usa "numeroDivision" para no chocar
+// con la variable "numero" del Ejercicio 1.
+
+var numeroDivision = 1000.0
+var divisiones = 0
+
+while numeroDivision >= 1 {
+    numeroDivision = numeroDivision / 2
+    divisiones += 1
+    print("División \(divisiones): \(numeroDivision)")
+}
+
+print("Se dividió \(divisiones) veces")
+
+
+// --- TODO 13: Validar datos con repeat-while ---
+
+// Simulamos tres intentos:
+// 25 -> inválido
+// -3 -> inválido
+// 15 -> válido
+
+let intento1 = 25
+let intento2 = -3
+let intento3 = 15
+
+var intentoActual = intento1
+var esValido = false
+var numIntento = 1
+
+repeat {
+
+    if intentoActual >= 0 && intentoActual <= 20 {
+        esValido = true
+        print("Nota \(intentoActual) válida en intento \(numIntento)")
+    } else {
+        print("Nota \(intentoActual) inválida, intento \(numIntento)")
+
+        // Simula el siguiente intento
+        if numIntento == 1 {
+            intentoActual = intento2
+        }
+
+        if numIntento == 2 {
+            intentoActual = intento3
+        }
+
+        numIntento += 1
+    }
+
+} while !esValido
+
+
+// --- PREDICCIONES ---
+
+var valorA = 100
+var vueltasA = 0
+
+while valorA > 1 {
+    valorA = valorA / 3
+    vueltasA += 1
+}
+
+print("Valor final: \(valorA)")
+print("Vueltas: \(vueltasA)")
+
+// PREDICT 8:
+// Valor final = 1
+// Vueltas = 5
+
+
+var valorB = 0
+
+repeat {
+    valorB += 1
+} while valorB < 0
+
+print("Valor final de b: \(valorB)")
+
+// PREDICT 9:
+// Valor = 1
+
+// repeat-while ejecuta el bloque al menos una vez
+// porque primero ejecuta el código y después evalúa
+// la condición.
