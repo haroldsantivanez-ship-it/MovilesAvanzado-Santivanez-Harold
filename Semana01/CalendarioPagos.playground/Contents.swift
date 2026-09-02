@@ -6,11 +6,11 @@ let nombreProducto = "Laptop Lenovo"
 let precioUnitario = 3500.0
 let cantidadComprada = 2
 
-// MARK: - Cálculo del importe
+// MARK: - Cálculo del importe de compra
 
 let importeCompra = precioUnitario * Double(cantidadComprada)
 
-// MARK: - Cálculo del beneficio
+// MARK: - Cálculo del beneficio por cantidad
 
 func calcularBeneficio(cantidad: Int, importe: Double) -> Double {
     if cantidad >= 2 {
@@ -27,7 +27,7 @@ let beneficio = calcularBeneficio(
 
 let montoCompra = importeCompra - beneficio
 
-// MARK: - Selección del plan
+// MARK: - Selección del plan de pago
 
 let planElegido = 6
 
@@ -56,7 +56,11 @@ func calcularFinanciamiento(
     let financiado = monto + interes
     let cuota = financiado / Double(meses)
     
-    return (interes, financiado, cuota)
+    return (
+        interes: interes,
+        financiado: financiado,
+        cuota: cuota
+    )
 }
 
 let financiamiento = calcularFinanciamiento(
@@ -69,47 +73,61 @@ let interesGenerado = financiamiento.interes
 let montoFinanciado = financiamiento.financiado
 let cuotaMensual = financiamiento.cuota
 
-// MARK: - Resumen de la operación
+// MARK: - Mostrar resumen
 
 print("========== RESUMEN DE COMPRA ==========")
 print("Producto: \(nombreProducto)")
 print("Precio unitario: S/. \(precioUnitario)")
-print("Cantidad: \(cantidadComprada)")
+print("Cantidad comprada: \(cantidadComprada)")
 print("Importe de compra: S/. \(importeCompra)")
-print("Beneficio aplicado: S/. \(beneficio)")
+print("Beneficio por cantidad: S/. \(beneficio)")
 print("Monto de compra: S/. \(montoCompra)")
 
 print("")
 print("========== PLAN DE PAGO ==========")
 print("Plan elegido: \(planElegido) meses")
-print("Interés aplicado: \(tasaInteres * 100)%")
+print("Tasa de interés: \(tasaInteres * 100)%")
 print("Interés generado: S/. \(interesGenerado)")
 print("Monto financiado: S/. \(montoFinanciado)")
 print("Cuota mensual: S/. \(cuotaMensual)")
 
 // MARK: - Calendario de pagos
 
-print("")
-print("========== CALENDARIO DE PAGOS ==========")
-print("Mes | Monto inicial | Cuota mensual | Saldo pendiente")
-print("------------------------------------------------------")
-
-var saldoPendiente = montoFinanciado
-
-for mes in 1...planElegido {
+func mostrarCalendarioPagos(
+    montoFinanciado: Double,
+    cuotaMensual: Double,
+    meses: Int
+) {
     
-    let montoInicial = saldoPendiente
+    print("")
+    print("========== CALENDARIO DE PAGOS ==========")
+    print("Mes | Monto inicial | Cuota mensual | Saldo pendiente")
+    print("------------------------------------------------------")
     
-    saldoPendiente -= cuotaMensual
+    var saldoPendiente = montoFinanciado
     
-    if saldoPendiente < 0 {
-        saldoPendiente = 0
+    for mes in 1...meses {
+        let montoInicial = saldoPendiente
+        
+        saldoPendiente -= cuotaMensual
+        
+        if saldoPendiente < 0 {
+            saldoPendiente = 0
+        }
+        
+        print(
+            "\(mes) | S/. \(montoInicial) | S/. \(cuotaMensual) | S/. \(saldoPendiente)"
+        )
     }
     
-    print(
-        "\(mes) | S/. \(montoInicial) | S/. \(cuotaMensual) | S/. \(saldoPendiente)"
-    )
+    print("------------------------------------------------------")
+    print("Compra financiada correctamente.")
 }
 
-print("------------------------------------------------------")
-print("Compra financiada correctamente.")
+// MARK: - Ejecutar calendario
+
+mostrarCalendarioPagos(
+    montoFinanciado: montoFinanciado,
+    cuotaMensual: cuotaMensual,
+    meses: planElegido
+)
