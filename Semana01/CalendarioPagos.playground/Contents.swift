@@ -6,24 +6,28 @@ let nombreProducto = "Laptop Lenovo"
 let precioUnitario = 3500.0
 let cantidadComprada = 2
 
-// MARK: - Cálculo de compra
+// MARK: - Cálculo del importe
 
 let importeCompra = precioUnitario * Double(cantidadComprada)
 
-// Se aplica un beneficio del 20% cuando la compra
-// alcanza las 2 unidades.
-let porcentajeBeneficio: Double
+// MARK: - Cálculo del beneficio
 
-if cantidadComprada >= 2 {
-    porcentajeBeneficio = 0.20
-} else {
-    porcentajeBeneficio = 0.0
+func calcularBeneficio(cantidad: Int, importe: Double) -> Double {
+    if cantidad >= 2 {
+        return importe * 0.20
+    }
+    
+    return 0.0
 }
 
-let beneficio = importeCompra * porcentajeBeneficio
+let beneficio = calcularBeneficio(
+    cantidad: cantidadComprada,
+    importe: importeCompra
+)
+
 let montoCompra = importeCompra - beneficio
 
-// MARK: - Selección del plan
+// MARK: - Plan de financiamiento
 
 let planElegido = 6
 
@@ -40,11 +44,13 @@ default:
     tasaInteres = 0.0
 }
 
+// MARK: - Cálculo del financiamiento
+
 let interesGenerado = montoCompra * tasaInteres
 let montoFinanciado = montoCompra + interesGenerado
 let cuotaMensual = montoFinanciado / Double(planElegido)
 
-// MARK: - Resumen
+// MARK: - Resumen de la operación
 
 print("========== RESUMEN DE COMPRA ==========")
 print("Producto: \(nombreProducto)")
@@ -62,11 +68,12 @@ print("Interés generado: S/. \(interesGenerado)")
 print("Monto financiado: S/. \(montoFinanciado)")
 print("Cuota mensual: S/. \(cuotaMensual)")
 
-print("")
-print("Mes | Monto inicial | Cuota mensual | Resta por pagar")
-print("------------------------------------------------------")
-
 // MARK: - Calendario de pagos
+
+print("")
+print("========== CALENDARIO DE PAGOS ==========")
+print("Mes | Monto inicial | Cuota mensual | Saldo pendiente")
+print("------------------------------------------------------")
 
 var saldoPendiente = montoFinanciado
 
@@ -79,5 +86,10 @@ for mes in 1...planElegido {
         saldoPendiente = 0
     }
     
-    print("\(mes) | S/. \(montoInicial) | S/. \(cuotaMensual) | S/. \(saldoPendiente)")
+    print(
+        "\(mes) | S/. \(montoInicial) | S/. \(cuotaMensual) | S/. \(saldoPendiente)"
+    )
 }
+
+print("------------------------------------------------------")
+print("Compra financiada correctamente.")
