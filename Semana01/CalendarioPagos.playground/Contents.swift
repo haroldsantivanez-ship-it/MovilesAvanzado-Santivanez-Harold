@@ -27,7 +27,7 @@ let beneficio = calcularBeneficio(
 
 let montoCompra = importeCompra - beneficio
 
-// MARK: - Plan de financiamiento
+// MARK: - Selección del plan
 
 let planElegido = 6
 
@@ -46,9 +46,28 @@ default:
 
 // MARK: - Cálculo del financiamiento
 
-let interesGenerado = montoCompra * tasaInteres
-let montoFinanciado = montoCompra + interesGenerado
-let cuotaMensual = montoFinanciado / Double(planElegido)
+func calcularFinanciamiento(
+    monto: Double,
+    tasa: Double,
+    meses: Int
+) -> (interes: Double, financiado: Double, cuota: Double) {
+    
+    let interes = monto * tasa
+    let financiado = monto + interes
+    let cuota = financiado / Double(meses)
+    
+    return (interes, financiado, cuota)
+}
+
+let financiamiento = calcularFinanciamiento(
+    monto: montoCompra,
+    tasa: tasaInteres,
+    meses: planElegido
+)
+
+let interesGenerado = financiamiento.interes
+let montoFinanciado = financiamiento.financiado
+let cuotaMensual = financiamiento.cuota
 
 // MARK: - Resumen de la operación
 
@@ -78,6 +97,7 @@ print("------------------------------------------------------")
 var saldoPendiente = montoFinanciado
 
 for mes in 1...planElegido {
+    
     let montoInicial = saldoPendiente
     
     saldoPendiente -= cuotaMensual
