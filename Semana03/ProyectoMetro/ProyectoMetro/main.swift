@@ -962,7 +962,7 @@ while continuar {
         mostrarEstados()
 
     case "7":
-        print("\nGracias por utilizar el sistema.")
+        print("\nGracias por utilizar el Sistema de Consulta del Metro de Lima y Callao.")
         continuar = false
 
     default:
