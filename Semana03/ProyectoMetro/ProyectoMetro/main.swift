@@ -89,6 +89,17 @@ let estacionesPorLinea: [String: [String]] = [
     "L6": []
 ]
 
+let conexiones: [String: [String]] = [
+    "Carmen de la Legua": ["L2", "L4"]
+]
+
+func normalizarTexto(_ texto: String) -> String {
+    return texto
+        .trimmingCharacters(in: .whitespacesAndNewlines)
+        .folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
+        .lowercased()
+}
+
 func mostrarMenu() {
     print("\n=============================================")
     print("       METRO DE LIMA Y CALLAO")
@@ -116,8 +127,9 @@ func mostrarEstaciones() {
     print("\nIngrese la línea (L1, L2, L3, L4, L5 o L6): ", terminator: "")
 
     if let entrada = readLine() {
-
-        let linea = entrada.uppercased()
+        let linea = entrada
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .uppercased()
 
         if let estaciones = estacionesPorLinea[linea] {
 
@@ -137,6 +149,44 @@ func mostrarEstaciones() {
     }
 }
 
+func buscarEstacion() {
+    print("\nIngrese el nombre de la estación: ", terminator: "")
+
+    guard let entrada = readLine() else {
+        return
+    }
+
+    let busqueda = normalizarTexto(entrada)
+    var encontrada = false
+
+    for linea in lineas {
+
+        guard let estaciones = estacionesPorLinea[linea] else {
+            continue
+        }
+
+        for estacion in estaciones {
+
+            if normalizarTexto(estacion) == busqueda {
+                print("\nLa estación \(estacion) pertenece a la \(linea).")
+                encontrada = true
+            }
+        }
+    }
+
+    if !encontrada {
+        print("\nNo se encontró la estación ingresada.")
+    }
+}
+
+func mostrarConexiones() {
+    print("\n--- CONEXIONES REGISTRADAS ---")
+
+    for (estacion, lineasConectadas) in conexiones.sorted(by: { $0.key < $1.key }) {
+        print("\(estacion): \(lineasConectadas.joined(separator: " - "))")
+    }
+}
+
 var continuar = true
 
 while continuar {
@@ -145,7 +195,9 @@ while continuar {
 
     if let opcion = readLine() {
 
-        switch opcion {
+        let opcionLimpia = opcion.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        switch opcionLimpia {
 
         case "1":
             mostrarLineas()
@@ -153,11 +205,17 @@ while continuar {
         case "2":
             mostrarEstaciones()
 
+        case "3":
+            buscarEstacion()
+
+        case "4":
+            mostrarConexiones()
+
         case "7":
             print("\nGracias por utilizar el sistema.")
             continuar = false
 
-        case "3", "4", "5", "6":
+        case "5", "6":
             print("\nEsta opción se implementará en los siguientes pasos.")
 
         default:
