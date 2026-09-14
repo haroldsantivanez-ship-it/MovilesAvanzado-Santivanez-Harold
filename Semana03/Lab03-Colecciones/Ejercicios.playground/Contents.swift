@@ -76,14 +76,14 @@ let numerosFix = [10, 20, 30, 40, 50]
 print(numerosFix[4])
 
 
-// PREDICT
+// PREDICT 1 - 4
 var lista = [1, 2, 3, 4, 5]
 
 lista.remove(at: 0)
 lista.append(6)
 
-print(lista)          // [2, 3, 4, 5, 6]
-print(lista.count)    // 5
+print(lista)              // [2, 3, 4, 5, 6]
+print(lista.count)        // 5
 
 var nombresPredict = ["Ana", "Carlos", "Beto"]
 
@@ -129,7 +129,6 @@ print("Valor total: S/. \(valorTotal)")
 
 // TODO 7: Buscar producto
 print("Buscar producto:")
-
 let buscarProd = readLine() ?? ""
 
 if let precioEncontrado = productos[buscarProd] {
@@ -139,10 +138,7 @@ if let precioEncontrado = productos[buscarProd] {
 }
 
 
-// ======================================================
 // ANALYZE
-// ======================================================
-
 var edades: [String: Int] = [
     "Ana": 20,
     "Luis": 22,
@@ -160,7 +156,92 @@ for (nombre, edad) in edades {
 print("Mayores de 21: \(mayores)")
 
 // ANALYZE 1:
-// El código revisa las edades guardadas en el diccionario.
-// Si una persona tiene 21 años o más, agrega su nombre
-// al array mayores.
+// Recorre el diccionario de edades.
+// Si una persona tiene 21 años o más,
+// guarda su nombre en el array mayores.
 // En este caso imprime a Luis porque tiene 22 años.
+
+
+// ======================================================
+// EJERCICIO 3: SETS
+// ======================================================
+
+// TODO 8: Eliminar duplicados
+var numeros: [Int] = []
+
+for i in 1...8 {
+    print("Número \(i):")
+    let numero = Int(readLine() ?? "") ?? 0
+    numeros.append(numero)
+}
+
+print("Con duplicados: \(numeros)")
+
+let sinDuplicados = Array(Set(numeros)).sorted()
+
+print("Sin duplicados: \(sinDuplicados)")
+
+
+// TODO 9: Comparar asistencia
+
+var asistenciaLunes: Set<String> = []
+var asistenciaMartes: Set<String> = []
+
+print("===== ASISTENCIA LUNES =====")
+
+for i in 1...4 {
+    print("Alumno \(i):")
+    let nombre = readLine() ?? ""
+    asistenciaLunes.insert(nombre)
+}
+
+print("===== ASISTENCIA MARTES =====")
+
+for i in 1...4 {
+    print("Alumno \(i):")
+    let nombre = readLine() ?? ""
+    asistenciaMartes.insert(nombre)
+}
+
+let ambosDias = asistenciaLunes.intersection(asistenciaMartes)
+let soloLunes = asistenciaLunes.subtracting(asistenciaMartes)
+let soloMartes = asistenciaMartes.subtracting(asistenciaLunes)
+
+print("Asistieron ambos días: \(ambosDias)")
+print("Solo lunes: \(soloLunes)")
+print("Solo martes: \(soloMartes)")
+
+
+// ======================================================
+// PREDICT 5 - 8
+// ======================================================
+
+let conjuntoA: Set<Int> = [1, 2, 3, 4, 5]
+let conjuntoB: Set<Int> = [4, 5, 6, 7, 8]
+
+// PREDICT 5:
+// Los valores que están en ambos conjuntos son 4 y 5.
+
+print(conjuntoA.intersection(conjuntoB))
+
+
+// PREDICT 6:
+// La unión contiene los números del 1 al 8.
+// Por eso el total es 8.
+
+print(conjuntoA.union(conjuntoB).count)
+
+
+// PREDICT 7:
+// Los valores que están en A pero no en B son 1, 2 y 3.
+
+print(conjuntoA.subtracting(conjuntoB))
+
+
+// PREDICT 8:
+// Un Set no permite elementos repetidos.
+// Solo quedan A, B y C, por eso count es 3.
+
+var repetidos: Set<String> = ["A", "B", "A", "C", "B"]
+
+print(repetidos.count)
