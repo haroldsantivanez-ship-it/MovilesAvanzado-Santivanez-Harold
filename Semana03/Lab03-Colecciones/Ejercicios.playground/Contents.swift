@@ -1,12 +1,12 @@
 // Desarrollado por: Harold Eduardo Santivanez Garcia
-// Ejercicio 1: Arrays
 
 import Foundation
 
 // ======================================================
-// TODO 1: REGISTRO DE 5 ALUMNOS
+// EJERCICIO 1: ARRAYS
 // ======================================================
 
+// TODO 1: Registro de 5 alumnos
 var alumnos: [String] = []
 
 for i in 1...5 {
@@ -18,10 +18,7 @@ for i in 1...5 {
 print("Alumnos: \(alumnos)")
 
 
-// ======================================================
-// TODO 2: BUSCAR UN ALUMNO
-// ======================================================
-
+// TODO 2: Buscar un alumno
 print("Buscar alumno:")
 let buscar = readLine() ?? ""
 
@@ -32,10 +29,7 @@ if alumnos.contains(buscar) {
 }
 
 
-// ======================================================
-// TODO 3: NOTAS CON CLASIFICACIÓN
-// ======================================================
-
+// TODO 3: Notas con clasificación
 var notasClase: [Double] = []
 
 for i in 1...5 {
@@ -65,69 +59,108 @@ print("Aprobados: \(aprobados)")
 print("Desaprobados: \(desaprobados)")
 
 
-// ======================================================
-// FIX: CORRECCIÓN DE LOS 3 ERRORES
-// ======================================================
-
-// FIX 1:
-// El array frutas guarda String, por eso no se puede agregar el número 7.
-// Se cambia por un texto.
-
+// FIX 1
 var frutas = ["Manzana", "Plátano", "Naranja"]
 frutas.append("Pera")
-
 print("Frutas: \(frutas)")
 
 
-// FIX 2:
-// colores debe ser var porque vamos a modificar el array con append.
-
+// FIX 2
 var colores = ["Rojo", "Azul", "Verde"]
 colores.append("Amarillo")
-
 print("Colores: \(colores)")
 
 
-// FIX 3:
-// El último índice válido es 4 porque el array tiene 5 elementos.
-// numeros[5] causaría un error porque esa posición no existe.
-
+// FIX 3
 let numerosFix = [10, 20, 30, 40, 50]
 print(numerosFix[4])
 
 
-// ======================================================
 // PREDICT
-// ======================================================
-
 var lista = [1, 2, 3, 4, 5]
 
 lista.remove(at: 0)
 lista.append(6)
 
-// PREDICT 1:
-// Se elimina el 1 y se agrega el 6.
-// Resultado: [2, 3, 4, 5, 6]
-
-print(lista)
-
-
-// PREDICT 2:
-// El array sigue teniendo 5 elementos.
-
-print(lista.count)
-
-
-// PREDICT 3:
-// sorted() devuelve un nuevo array ordenado alfabéticamente.
-// Resultado: ["Ana", "Beto", "Carlos"]
+print(lista)          // [2, 3, 4, 5, 6]
+print(lista.count)    // 5
 
 var nombresPredict = ["Ana", "Carlos", "Beto"]
-print(nombresPredict.sorted())
+
+print(nombresPredict.sorted()) // ["Ana", "Beto", "Carlos"]
+print(nombresPredict)          // ["Ana", "Carlos", "Beto"]
 
 
-// PREDICT 4:
-// sorted() no modifica el array original.
-// Resultado: ["Ana", "Carlos", "Beto"]
+// ======================================================
+// EJERCICIO 2: DICCIONARIOS
+// ======================================================
 
-print(nombresPredict)
+// TODO 4: Catálogo de productos
+var productos: [String: Double] = [:]
+
+for i in 1...4 {
+    print("Producto \(i) - Nombre:")
+    let nombre = readLine() ?? ""
+
+    print("Precio:")
+    let precio = Double(readLine() ?? "") ?? 0
+
+    productos[nombre] = precio
+}
+
+
+// TODO 5: Mostrar catálogo
+print("===== CATÁLOGO =====")
+
+for (nombre, precio) in productos {
+    print("\(nombre): S/. \(precio)")
+}
+
+
+// TODO 6: Valor total
+var valorTotal = 0.0
+
+for (_, precio) in productos {
+    valorTotal += precio
+}
+
+print("Valor total: S/. \(valorTotal)")
+
+
+// TODO 7: Buscar producto
+print("Buscar producto:")
+
+let buscarProd = readLine() ?? ""
+
+if let precioEncontrado = productos[buscarProd] {
+    print("\(buscarProd) cuesta S/. \(precioEncontrado)")
+} else {
+    print("Producto no encontrado")
+}
+
+
+// ======================================================
+// ANALYZE
+// ======================================================
+
+var edades: [String: Int] = [
+    "Ana": 20,
+    "Luis": 22,
+    "María": 19
+]
+
+var mayores: [String] = []
+
+for (nombre, edad) in edades {
+    if edad >= 21 {
+        mayores.append(nombre)
+    }
+}
+
+print("Mayores de 21: \(mayores)")
+
+// ANALYZE 1:
+// El código revisa las edades guardadas en el diccionario.
+// Si una persona tiene 21 años o más, agrega su nombre
+// al array mayores.
+// En este caso imprime a Luis porque tiene 22 años.
