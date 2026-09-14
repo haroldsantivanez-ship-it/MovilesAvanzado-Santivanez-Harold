@@ -20,12 +20,12 @@ print("Alumnos: \(alumnos)")
 
 // TODO 2: Buscar un alumno
 print("Buscar alumno:")
-let buscar = readLine() ?? ""
+let buscarAlumno = readLine() ?? ""
 
-if alumnos.contains(buscar) {
-    print("\(buscar) está en la lista")
+if alumnos.contains(buscarAlumno) {
+    print("\(buscarAlumno) está en la lista")
 } else {
-    print("\(buscar) NO está en la lista")
+    print("\(buscarAlumno) NO está en la lista")
 }
 
 
@@ -62,17 +62,20 @@ print("Desaprobados: \(desaprobados)")
 // FIX 1
 var frutas = ["Manzana", "Plátano", "Naranja"]
 frutas.append("Pera")
+
 print("Frutas: \(frutas)")
 
 
 // FIX 2
 var colores = ["Rojo", "Azul", "Verde"]
 colores.append("Amarillo")
+
 print("Colores: \(colores)")
 
 
 // FIX 3
 let numerosFix = [10, 20, 30, 40, 50]
+
 print(numerosFix[4])
 
 
@@ -82,13 +85,13 @@ var lista = [1, 2, 3, 4, 5]
 lista.remove(at: 0)
 lista.append(6)
 
-print(lista)              // [2, 3, 4, 5, 6]
-print(lista.count)        // 5
+print(lista)
+print(lista.count)
 
 var nombresPredict = ["Ana", "Carlos", "Beto"]
 
-print(nombresPredict.sorted()) // ["Ana", "Beto", "Carlos"]
-print(nombresPredict)          // ["Ana", "Carlos", "Beto"]
+print(nombresPredict.sorted())
+print(nombresPredict)
 
 
 // ======================================================
@@ -118,21 +121,22 @@ for (nombre, precio) in productos {
 
 
 // TODO 6: Valor total
-var valorTotal = 0.0
+var valorTotalCatalogo = 0.0
 
 for (_, precio) in productos {
-    valorTotal += precio
+    valorTotalCatalogo += precio
 }
 
-print("Valor total: S/. \(valorTotal)")
+print("Valor total: S/. \(valorTotalCatalogo)")
 
 
 // TODO 7: Buscar producto
 print("Buscar producto:")
-let buscarProd = readLine() ?? ""
 
-if let precioEncontrado = productos[buscarProd] {
-    print("\(buscarProd) cuesta S/. \(precioEncontrado)")
+let buscarProducto = readLine() ?? ""
+
+if let precioEncontrado = productos[buscarProducto] {
+    print("\(buscarProducto) cuesta S/. \(precioEncontrado)")
 } else {
     print("Producto no encontrado")
 }
@@ -156,10 +160,9 @@ for (nombre, edad) in edades {
 print("Mayores de 21: \(mayores)")
 
 // ANALYZE 1:
-// Recorre el diccionario de edades.
-// Si una persona tiene 21 años o más,
-// guarda su nombre en el array mayores.
-// En este caso imprime a Luis porque tiene 22 años.
+// Recorre el diccionario y revisa la edad de cada persona.
+// Si tiene 21 años o más, agrega su nombre al array.
+// En este caso aparece Luis porque tiene 22 años.
 
 
 // ======================================================
@@ -183,7 +186,6 @@ print("Sin duplicados: \(sinDuplicados)")
 
 
 // TODO 9: Comparar asistencia
-
 var asistenciaLunes: Set<String> = []
 var asistenciaMartes: Set<String> = []
 
@@ -212,36 +214,92 @@ print("Solo lunes: \(soloLunes)")
 print("Solo martes: \(soloMartes)")
 
 
-// ======================================================
 // PREDICT 5 - 8
-// ======================================================
-
 let conjuntoA: Set<Int> = [1, 2, 3, 4, 5]
 let conjuntoB: Set<Int> = [4, 5, 6, 7, 8]
 
-// PREDICT 5:
-// Los valores que están en ambos conjuntos son 4 y 5.
-
-print(conjuntoA.intersection(conjuntoB))
-
-
-// PREDICT 6:
-// La unión contiene los números del 1 al 8.
-// Por eso el total es 8.
-
-print(conjuntoA.union(conjuntoB).count)
-
-
-// PREDICT 7:
-// Los valores que están en A pero no en B son 1, 2 y 3.
-
-print(conjuntoA.subtracting(conjuntoB))
-
-
-// PREDICT 8:
-// Un Set no permite elementos repetidos.
-// Solo quedan A, B y C, por eso count es 3.
+print(conjuntoA.intersection(conjuntoB)) // 4 y 5
+print(conjuntoA.union(conjuntoB).count)  // 8
+print(conjuntoA.subtracting(conjuntoB))  // 1, 2 y 3
 
 var repetidos: Set<String> = ["A", "B", "A", "C", "B"]
 
-print(repetidos.count)
+print(repetidos.count) // 3
+
+
+// ======================================================
+// EJERCICIO 4: COMBINACIÓN DE COLECCIONES
+// ======================================================
+
+// TODO 10: Inventario de productos
+
+var preciosInventario: [String: Double] = [:]
+var stocksInventario: [String: Int] = [:]
+
+print("¿Cuántos productos?")
+
+let cantidadProductos = Int(readLine() ?? "") ?? 0
+
+// Solo se ejecuta el for si la cantidad es mayor a cero
+if cantidadProductos > 0 {
+
+    for i in 1...cantidadProductos {
+
+        print("Producto \(i) - Nombre:")
+        let nombre = readLine() ?? ""
+
+        print("Precio:")
+        let precio = Double(readLine() ?? "") ?? 0
+
+        print("Stock:")
+        let stock = Int(readLine() ?? "") ?? 0
+
+        preciosInventario[nombre] = precio
+        stocksInventario[nombre] = stock
+    }
+
+} else {
+    print("No se ingresaron productos")
+}
+
+
+// Calcular valor total del inventario
+var valorTotalInventario = 0.0
+
+for (nombre, precio) in preciosInventario {
+
+    if let stock = stocksInventario[nombre] {
+        valorTotalInventario += precio * Double(stock)
+    }
+}
+
+
+// Mostrar inventario
+print("===== INVENTARIO =====")
+
+for (nombre, precio) in preciosInventario {
+
+    if let stock = stocksInventario[nombre] {
+        print("\(nombre) - Precio: S/. \(precio) - Stock: \(stock)")
+    }
+}
+
+print("Valor total del inventario: S/. \(valorTotalInventario)")
+
+
+// Mostrar productos con stock bajo
+print("===== STOCK BAJO =====")
+
+var encontroStockBajo = false
+
+for (nombre, stock) in stocksInventario {
+
+    if stock < 5 {
+        print("\(nombre) - Stock: \(stock)")
+        encontroStockBajo = true
+    }
+}
+
+if encontroStockBajo == false {
+    print("No hay productos con stock bajo")
+}
