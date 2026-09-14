@@ -1,8 +1,10 @@
 import Cocoa
 
-// ===== CASO 1.5: HERENCIA Y POLIMORFISMO =====
+// ======================================================
+// CASO 1.5: HERENCIA Y POLIMORFISMO
+// ======================================================
 
-// Categorías para los electrodomésticos
+// Categorías de los electrodomésticos
 enum CategoriaElectro {
     case lineaBlanca
     case tecnologia
@@ -17,7 +19,7 @@ struct Electrodomestico {
     let categoria: CategoriaElectro
 }
 
-// Clase principal de las sucursales
+// Clase base de las sucursales
 class Sucursal {
     let nombre: String
     let ciudad: String
@@ -35,7 +37,7 @@ class Sucursal {
         return 30.0
     }
 
-    // Este método se mantiene solo en la clase principal
+    // La cotización se realiza desde la clase base
     func cotizar(item: Electrodomestico) {
         let precioConDescuento = item.precioLista * (1 - descuento())
         let envio = costoEnvio(monto: precioConDescuento)
@@ -44,6 +46,11 @@ class Sucursal {
         print("\(nombre): \(item.nombre) -> S/ \(precioConDescuento) + envio S/ \(envio) = S/ \(total)")
     }
 }
+
+
+// ======================================================
+// TIPOS DE SUCURSALES
+// ======================================================
 
 // Sucursal de Lima
 class SucursalLima: Sucursal {
@@ -95,7 +102,11 @@ class SucursalOnline: Sucursal {
     }
 }
 
-// Productos que se usarán para las pruebas
+
+// ======================================================
+// PRODUCTOS PARA LAS PRUEBAS
+// ======================================================
+
 let refrigeradora = Electrodomestico(
     nombre: "Refrigeradora",
     marca: "Frost",
@@ -110,38 +121,60 @@ let licuadora = Electrodomestico(
     categoria: .pequenos
 )
 
-// Todas las sucursales usan como tipo la clase base
+
+// Todas las sucursales se guardan usando la clase base
 let sucursales: [Sucursal] = [
-    SucursalLima(nombre: "Lima Centro", ciudad: "Lima"),
-    SucursalProvincia(nombre: "Provincia Cusco", ciudad: "Cusco"),
-    SucursalOutlet(nombre: "Outlet Ate", ciudad: "Lima"),
-    SucursalOnline(nombre: "Online", ciudad: "Virtual")
+    SucursalLima(
+        nombre: "Lima Centro",
+        ciudad: "Lima"
+    ),
+
+    SucursalProvincia(
+        nombre: "Provincia Cusco",
+        ciudad: "Cusco"
+    ),
+
+    SucursalOutlet(
+        nombre: "Outlet Ate",
+        ciudad: "Lima"
+    ),
+
+    SucursalOnline(
+        nombre: "Online",
+        ciudad: "Virtual"
+    )
 ]
 
-// Prueba con refrigeradora
+
+// ======================================================
+// PRUEBAS DE COTIZACIÓN
+// ======================================================
+
 print("===== Refrigeradora (S/ 2000.0) =====")
 
 for sucursal in sucursales {
     sucursal.cotizar(item: refrigeradora)
 }
 
-// Prueba con licuadora
+
 print("===== Licuadora (S/ 250.0) =====")
 
 for sucursal in sucursales {
     sucursal.cotizar(item: licuadora)
 }
 
-// Para agregar SucursalOnline solo fue necesario crear la nueva clase
-// y añadirla al arreglo de sucursales.
+
+// Para agregar SucursalOnline solo fue necesario crear
+// la nueva clase y agregarla al arreglo de sucursales.
 // No fue necesario cambiar cotizar ni los for-in.
 
 
-// ===== FIX 7 =====
+// ======================================================
+// FIX 7
+// ======================================================
 
-// Faltaba override porque descuento() ya existe en la clase Sucursal.
-// Swift necesita esa palabra para indicar que estamos reemplazando
-// el comportamiento heredado.
+// Faltaba override porque descuento() ya existe en Sucursal.
+// Con override indicamos que se reemplaza el método heredado.
 
 class SucursalMall: Sucursal {
 
@@ -151,10 +184,13 @@ class SucursalMall: Sucursal {
 }
 
 
-// ===== FIX 8 =====
+// ======================================================
+// FIX 8
+// ======================================================
 
-// La clase hija tiene una propiedad nueva llamada radioKm.
-// Primero se inicializa esa propiedad y luego se llama al init de Sucursal.
+// Esta clase agrega la propiedad radioKm.
+// Primero se inicializa esa propiedad y después
+// se llama al inicializador de la clase padre.
 
 class SucursalExpress: Sucursal {
 
@@ -167,7 +203,9 @@ class SucursalExpress: Sucursal {
 }
 
 
-// ===== PREDICT =====
+// ======================================================
+// PREDICT 6 Y 7
+// ======================================================
 
 print("===== PREDICT =====")
 
@@ -178,16 +216,188 @@ let misteriosa: Sucursal = SucursalLima(
 
 // PREDICT 6:
 // Aunque la variable está declarada como Sucursal,
-// el objeto real es SucursalLima.
-// Por eso Swift usa el descuento de Lima, que es 0.10.
+// el objeto que contiene realmente es SucursalLima.
+// Por eso se utiliza el descuento de Lima.
 
 print(misteriosa.descuento())
 
+
 let monto = 2000.0 * (1 - misteriosa.descuento())
 
+
 // PREDICT 7:
-// El monto queda en 1800.
-// Como es mayor o igual a 1500,
-// SucursalLima devuelve costo de envío 0.0.
+// El monto después del descuento es 1800.
+// Como supera los 1500, el envío en Lima es gratuito.
 
 print(misteriosa.costoEnvio(monto: monto))
+
+
+// ======================================================
+// CASO 2 - PARTE A: BIBLIOTECA SIN IA
+// ======================================================
+
+// Estado de cada libro
+enum EstadoLibro {
+    case disponible
+    case prestado
+}
+
+
+// Información de un libro
+struct Libro {
+    let titulo: String
+    let autor: String
+    var estado: EstadoLibro = .disponible
+}
+
+
+// Clase que administra la biblioteca
+class Biblioteca {
+
+    var libros: [Libro] = []
+
+
+    // Agrega un libro al inventario
+    func agregar(libro: Libro) {
+        libros.append(libro)
+    }
+
+
+    // Busca un libro y realiza el préstamo
+    func prestar(titulo: String) -> Bool {
+
+        for i in 0..<libros.count {
+
+            if libros[i].titulo == titulo {
+
+                if libros[i].estado == .disponible {
+
+                    libros[i].estado = .prestado
+                    print("Préstamo aprobado: \(titulo)")
+                    return true
+
+                } else {
+
+                    print("Error: \(titulo) ya está prestado")
+                    return false
+                }
+            }
+        }
+
+        print("Error: no existe \(titulo)")
+        return false
+    }
+
+
+    // Busca un libro y registra su devolución
+    func devolver(titulo: String) -> Bool {
+
+        for i in 0..<libros.count {
+
+            if libros[i].titulo == titulo {
+
+                if libros[i].estado == .prestado {
+
+                    libros[i].estado = .disponible
+                    print("Devolución registrada: \(titulo)")
+                    return true
+
+                } else {
+
+                    print("Error: \(titulo) ya está disponible")
+                    return false
+                }
+            }
+        }
+
+        print("Error: no existe \(titulo)")
+        return false
+    }
+
+
+    // Muestra todos los libros registrados
+    func inventario() {
+
+        print("===== INVENTARIO =====")
+
+        for libro in libros {
+
+            switch libro.estado {
+
+            case .disponible:
+                print("\(libro.titulo) (\(libro.autor)) - disponible")
+
+            case .prestado:
+                print("\(libro.titulo) (\(libro.autor)) - prestado")
+            }
+        }
+    }
+}
+
+
+// ======================================================
+// SIMULACIÓN DEL CASO 2A
+// ======================================================
+
+let biblioteca = Biblioteca()
+
+
+// Se crean tres libros
+let libro1 = Libro(
+    titulo: "Cien años de soledad",
+    autor: "Gabriel García Márquez"
+)
+
+let libro2 = Libro(
+    titulo: "La ciudad y los perros",
+    autor: "Mario Vargas Llosa"
+)
+
+let libro3 = Libro(
+    titulo: "El Quijote",
+    autor: "Miguel de Cervantes"
+)
+
+
+// Se agregan los libros a la biblioteca
+biblioteca.agregar(libro: libro1)
+biblioteca.agregar(libro: libro2)
+biblioteca.agregar(libro: libro3)
+
+
+// ======================================================
+// PRUEBAS DE LA BIBLIOTECA
+// ======================================================
+
+// Préstamo correcto
+biblioteca.prestar(
+    titulo: "La ciudad y los perros"
+)
+
+
+// Se intenta prestar nuevamente el mismo libro
+biblioteca.prestar(
+    titulo: "La ciudad y los perros"
+)
+
+
+// Se devuelve el libro
+biblioteca.devolver(
+    titulo: "La ciudad y los perros"
+)
+
+
+// Se presta otro libro
+biblioteca.prestar(
+    titulo: "El Quijote"
+)
+
+
+// Se intenta prestar un libro que no existe
+biblioteca.prestar(
+    titulo: "El Principito"
+)
+
+
+// Se muestra el inventario final
+biblioteca.inventario()
