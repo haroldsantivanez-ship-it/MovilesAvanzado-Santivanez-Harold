@@ -1,4 +1,4 @@
-import Cocoa // permite trabajar con Swift dentro del Playground
+`import Cocoa // permite trabajar con Swift dentro del Playground
 
 // ===== CASO 2 - PARTE B: BIBLIOTECA CON IA =====
 
