@@ -8,12 +8,7 @@ class ViewControllerVenta: UIViewController {
     @IBOutlet weak var txtMeses: UITextField!
     @IBOutlet weak var txtInteres: UITextField!
 
-    var subtotal: Double = 0
-    var igv: Double = 0
-    var base: Double = 0
-    var intereses: Double = 0
-    var total: Double = 0
-    var cuotaMensual: Double = 0
+    var resultado: ResultadoVenta?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,31 +16,27 @@ class ViewControllerVenta: UIViewController {
 
     @IBAction func btnCalcular(_ sender: UIButton) {
 
-        print("BOTON CALCULAR PRESIONADO")
-
-        guard let precio = Double(txtPrecio.text ?? ""),
-              let cantidad = Double(txtCantidad.text ?? ""),
-              let meses = Double(txtMeses.text ?? ""),
-              let interes = Double(txtInteres.text ?? ""),
-              meses > 0 else {
-
-            print("ERROR: DATOS INVALIDOS")
+        guard
+            let precio = Double(txtPrecio.text ?? ""),
+            let cantidad = Int(txtCantidad.text ?? ""),
+            let meses = Int(txtMeses.text ?? ""),
+            let interes = Double(txtInteres.text ?? "")
+        else {
             return
         }
 
-        subtotal = precio * cantidad
-        igv = subtotal * 0.18
-        base = subtotal + igv
-        intereses = base * (interes / 100) * meses
-        total = base + intereses
-        cuotaMensual = total / meses
+        let venta = VentaModel(
+            precio: precio,
+            cantidad: cantidad,
+            meses: meses,
+            interesMensual: interes
+        )
 
-        print("Subtotal:", subtotal)
-        print("IGV:", igv)
-        print("Base:", base)
-        print("Intereses:", intereses)
-        print("Total:", total)
-        print("Cuota mensual:", cuotaMensual)
+        guard venta.validar() else {
+            return
+        }
+
+        resultado = venta.calcular()
 
         performSegue(withIdentifier: "irResultado", sender: self)
     }
@@ -53,14 +44,15 @@ class ViewControllerVenta: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "irResultado",
-           let destino = segue.destination as? ViewControllerResultado {
+           let destino = segue.destination as? ViewControllerResultado,
+           let resultado = resultado {
 
-            destino.subtotal = subtotal
-            destino.igv = igv
-            destino.base = base
-            destino.intereses = intereses
-            destino.total = total
-            destino.cuotaMensual = cuotaMensual
+            destino.subtotal = resultado.subtotal
+            destino.igv = resultado.igv
+            destino.base = resultado.base
+            destino.intereses = resultado.intereses
+            destino.total = resultado.total
+            destino.cuotaMensual = resultado.cuotaMensual
         }
     }
 }

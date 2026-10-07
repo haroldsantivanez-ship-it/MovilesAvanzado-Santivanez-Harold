@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CDE28EBC30767D0C00951FE6 /* VentaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE28EBB30767D0C00951FE6 /* VentaModel.swift */; };
+		CDE28EBE3076849200951FE6 /* Modelos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE28EBD3076849200951FE6 /* Modelos.swift */; };
+		CDE28EC0307684F700951FE6 /* Protocolos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE28EBF307684F700951FE6 /* Protocolos.swift */; };
+		CDE28EC23076854A00951FE6 /* VentaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE28EC13076854A00951FE6 /* VentaService.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CD6FB8A4306D45E7003C6D49 /* Semana06.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semana06.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDE28EBB30767D0C00951FE6 /* VentaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VentaModel.swift; sourceTree = "<group>"; };
+		CDE28EBD3076849200951FE6 /* Modelos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modelos.swift; sourceTree = "<group>"; };
+		CDE28EBF307684F700951FE6 /* Protocolos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocolos.swift; sourceTree = "<group>"; };
+		CDE28EC13076854A00951FE6 /* VentaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VentaService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +56,10 @@
 		CD6FB89B306D45E7003C6D49 = {
 			isa = PBXGroup;
 			children = (
+				CDE28EC13076854A00951FE6 /* VentaService.swift */,
+				CDE28EBF307684F700951FE6 /* Protocolos.swift */,
+				CDE28EBD3076849200951FE6 /* Modelos.swift */,
+				CDE28EBB30767D0C00951FE6 /* VentaModel.swift */,
 				CD6FB8A6306D45E7003C6D49 /* Semana06 */,
 				CD6FB8A5306D45E7003C6D49 /* Products */,
 			);
@@ -132,6 +147,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDE28EC0307684F700951FE6 /* Protocolos.swift in Sources */,
+				CDE28EBE3076849200951FE6 /* Modelos.swift in Sources */,
+				CDE28EBC30767D0C00951FE6 /* VentaModel.swift in Sources */,
+				CDE28EC23076854A00951FE6 /* VentaService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
