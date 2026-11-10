@@ -2,3 +2,7 @@
 # Xcode
 xcuserdata/
 *.xcuserstate
+xcuserdata/
+DerivedData/
+.DS_Store
+*.xcuserstate
