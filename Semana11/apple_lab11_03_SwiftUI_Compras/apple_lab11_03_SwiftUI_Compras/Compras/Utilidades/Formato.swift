@@ -55,3 +55,9 @@ struct FilaMonto: View {
         .font(destacado ? .headline : .body)
     }
 }
+
+/// 🎨 Colores de la app. Cambia SOLO estas dos líneas para darle otro estilo.
+enum Tema {
+    static let principal = Color(red: 0.43, green: 0.27, blue: 0.84)   // morado (botones, pestañas, logo, comprador)
+    static let secundario = Color(red: 0.85, green: 0.22, blue: 0.55)  // fucsia (avatar del supervisor)
+}

@@ -103,7 +103,7 @@ struct NuevaCompraView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
-                    .tint(requiereAprobacion ? Color.orange : Color.accentColor)
+                    .tint(requiereAprobacion ? Color.orange : Tema.principal)
                     .disabled(!formularioValido)
                 }
                 .padding()

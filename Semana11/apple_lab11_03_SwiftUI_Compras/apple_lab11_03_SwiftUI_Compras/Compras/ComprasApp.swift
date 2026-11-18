@@ -23,6 +23,7 @@ struct ComprasApp: App {
         WindowGroup {
             RootView()
                 .environment(sesion)          // la sesión llega a todas las vistas
+                .tint(Tema.principal)         // color de botones, pestañas y enlaces
         }
         .modelContainer(contenedor)           // el contexto llega a todas las vistas
     }

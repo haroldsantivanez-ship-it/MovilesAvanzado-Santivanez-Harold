@@ -45,7 +45,7 @@ struct ResumenView: View {
                                   icono: "creditcard.fill", color: .orange)
                         Indicador(titulo: "Por aprobar", valor: importePorAprobar.soles,
                                   detalle: "\(pendientes.count) compra(s)",
-                                  icono: "checkmark.seal.fill", color: .teal)                           // ④
+                                  icono: "checkmark.seal.fill", color: Tema.principal)                           // ④
                     }
 
                     // ⑤ Total comprado por proveedor
@@ -57,7 +57,7 @@ struct ResumenView: View {
                             Chart(porProveedor, id: \.nombre) { item in
                                 BarMark(x: .value("Total", item.total),
                                         y: .value("Proveedor", item.nombre))
-                                    .foregroundStyle(Color.teal.gradient)
+                                    .foregroundStyle(Tema.principal.gradient)
                                     .annotation(position: .trailing) {
                                         Text(item.total.soles).font(.caption2)
                                     }

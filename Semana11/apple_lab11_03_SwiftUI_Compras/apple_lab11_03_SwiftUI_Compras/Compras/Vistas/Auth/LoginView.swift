@@ -21,7 +21,7 @@ struct LoginView: View {
                         .font(.system(size: 44))
                         .foregroundStyle(.white)
                         .frame(width: 88, height: 88)
-                        .background(Color.teal.gradient, in: RoundedRectangle(cornerRadius: 22))
+                        .background(Tema.principal.gradient, in: RoundedRectangle(cornerRadius: 22))
                     Text("Compras").font(.largeTitle.bold())
                     Text("Distribuidora · Tecsup").foregroundStyle(.secondary)
                 }

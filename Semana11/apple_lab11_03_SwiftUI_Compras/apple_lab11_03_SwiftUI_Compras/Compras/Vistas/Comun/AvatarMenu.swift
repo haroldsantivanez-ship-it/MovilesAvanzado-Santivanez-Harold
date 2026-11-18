@@ -21,7 +21,7 @@ struct AvatarMenu: View {
                     .font(.caption.bold())
                     .foregroundStyle(.white)
                     .frame(width: 32, height: 32)
-                    .background(usuario.esSupervisor ? Color.indigo : Color.teal, in: Circle())
+                    .background(usuario.esSupervisor ? Tema.secundario : Tema.principal, in: Circle())
             }
             .accessibilityLabel("Cuenta de \(usuario.nombre)")
         }
